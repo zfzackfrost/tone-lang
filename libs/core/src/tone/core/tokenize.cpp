@@ -44,15 +44,15 @@ namespace tone::core {
             if (auto t = get_keyword(word))
             {
                 // Special handling for constants
-                if (t == reserved_token::kw_true)
+                if (t == reserved_token::kw_constant_true)
                 {
                     return {true, line_number, char_index};
                 }
-                else if (t == reserved_token::kw_false)
+                else if (t == reserved_token::kw_constant_false)
                 {
                     return {false, line_number, char_index};
                 }
-                else if (t == reserved_token::kw_null)
+                else if (t == reserved_token::kw_constant_null)
                 {
                     return {null{}, line_number, char_index};
                 }

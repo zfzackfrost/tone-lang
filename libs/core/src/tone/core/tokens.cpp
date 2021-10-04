@@ -88,9 +88,9 @@ namespace tone::core {
             {"str", reserved_token::kw_str},
 
             // Constants
-            {"true", reserved_token::kw_true},
-            {"false", reserved_token::kw_false},
-            {"null", reserved_token::kw_null},
+            {"true", reserved_token::kw_constant_true},
+            {"false", reserved_token::kw_constant_false},
+            {"null", reserved_token::kw_constant_null},
     };
 
     const lookup<reserved_token, std::string_view> token_string_map = ([]() {

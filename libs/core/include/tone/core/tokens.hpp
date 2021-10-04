@@ -90,9 +90,9 @@ namespace tone::core {
         kw_str,
 
         // Keywords - Constants
-        kw_true,
-        kw_false,
-        kw_null,
+        kw_constant_true,
+        kw_constant_false,
+        kw_constant_null,
     };
 
     std::optional<reserved_token> get_keyword(std::string_view word);
