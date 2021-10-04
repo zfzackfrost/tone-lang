@@ -116,6 +116,9 @@ namespace tone::core {
                                         std::u16string, null, eof>;
 
         token(value_type value, std::size_t line_number, std::size_t char_index);
+        token();
+
+        bool operator==(const token& rhs) const;
 
         [[nodiscard]] bool is_reserved_token() const;
         [[nodiscard]] bool is_identifier() const;

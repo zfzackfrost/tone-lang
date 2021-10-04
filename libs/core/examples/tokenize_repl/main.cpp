@@ -1,5 +1,5 @@
 #include "tone/core/errors.hpp"
-#include "tone/core/tokenize.hpp"
+#include "tone/core/tokenizer.hpp"
 
 #include <iostream>
 #include <ranges>
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
         push_back_stream strm(input);
         try
         {
-            for (auto t = tokenize(strm); !t.is_eof(); t = tokenize(strm))
+            for (auto t : tokenizer(strm))
             {
                 fmt::print("    {}\n", t.dump());
             }

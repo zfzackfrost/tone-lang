@@ -8,7 +8,7 @@ namespace tone::core {
     class push_back_stream
     {
     public:
-        explicit push_back_stream(const character_source_t& input);
+        explicit push_back_stream(const character_source_t& input = null_character_source);
 
         character_t operator()();
 

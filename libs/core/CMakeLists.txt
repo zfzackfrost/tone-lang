@@ -10,6 +10,7 @@ list(APPEND TONE_SOURCES "${PREFIX_I}/core/push_back_stream.hpp" "${PREFIX_S}/co
 list(APPEND TONE_SOURCES "${PREFIX_I}/core/tokens.hpp" "${PREFIX_S}/core/tokens.cpp")
 list(APPEND TONE_SOURCES "${PREFIX_I}/core/tokenize.hpp" "${PREFIX_S}/core/tokenize.cpp")
 list(APPEND TONE_SOURCES "${PREFIX_I}/core/errors.hpp" "${PREFIX_S}/core/errors.cpp")
+list(APPEND TONE_SOURCES "${PREFIX_I}/core/tokenizer.hpp" "${PREFIX_S}/core/tokenizer.cpp")
 
 unset(PREFIX_I)
 unset(PREFIX_S)

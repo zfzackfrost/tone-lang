@@ -182,12 +182,37 @@ namespace tone::core {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// `token` class
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    token::token()
+        : _value(eof{})
+        , _line_num(0)
+        , _char_index(0)
+    {}
 
     token::token(token::value_type value, std::size_t line_number, std::size_t char_index)
         : _value(value)
         , _line_num(line_number)
         , _char_index(char_index)
     {}
+
+    bool token::operator==(const token& rhs) const
+    {
+        // If type doesn't match, early exit
+        if (_value.index() != rhs._value.index())
+            return false;
+
+        if (is_reserved_token())
+            return get_reserved_token() == rhs.get_reserved_token();
+        if (is_identifier())
+            return get_identifier() == rhs.get_identifier();
+        if (is_bool())
+            return get_bool() == rhs.get_bool();
+        if (is_real())
+            return get_real() == rhs.get_real();
+        if (is_int())
+            return get_int() == rhs.get_int();
+        // Null and EOF are always the same, so return true
+        return true;
+    }
 
     bool token::is_reserved_token() const
     {
@@ -222,39 +247,46 @@ namespace tone::core {
         return std::holds_alternative<eof>(_value);
     }
 
-
     reserved_token token::get_reserved_token() const
     {
         return std::get<reserved_token>(_value);
     }
+
     std::string_view token::get_identifier() const
     {
         return std::get<identifier>(_value).name;
     }
+
     bool token::get_bool() const
     {
         return std::get<bool>(_value);
     }
+
     double token::get_real() const
     {
         return std::get<double>(_value);
     }
+
     std::int64_t token::get_int() const
     {
         return std::get<std::int64_t>(_value);
     }
+
     std::u16string token::get_str() const
     {
         return std::get<std::u16string>(_value);
     }
+
     std::size_t token::get_line_number() const
     {
         return _line_num;
     }
+
     std::size_t token::get_char_index() const
     {
         return _char_index;
     }
+
     std::string token::dump() const
     {
         if (is_reserved_token())
