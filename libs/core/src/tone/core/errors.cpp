@@ -1,5 +1,8 @@
 #include "tone/core/errors.hpp"
 
+#include <fmt/format.h>
+#include <cstdlib>
+
 #include <utility>
 
 namespace tone::core {
@@ -38,13 +41,13 @@ namespace tone::core {
         return {message, line_number, char_index};
     }
 
-    void format_error(const error& err, const character_source_t& source, std::ostream& output)
+    void dump_error(const error& err, const character_source_t& source)
     {
-        output << "(" << (err.line_number() + 1) << ") " << err.what() << std::endl;
+        fmt::print(stderr, "({}) {}\n", err.line_number() + 1, err.what());
 
-        size_t char_index = 0;
+        std::size_t char_index = 0;
 
-        for (size_t line_number = 0; line_number < err.line_number(); ++char_index)
+        for (std::size_t line_number = 0; line_number < err.line_number(); ++char_index)
         {
             int c = source();
             if (c < 0)
@@ -57,10 +60,10 @@ namespace tone::core {
             }
         }
 
-        size_t index_in_line = err.char_index() - char_index;
+        std::size_t index_in_line = err.char_index() - char_index;
 
         std::string line;
-        for (size_t idx = 0;; ++idx)
+        for (std::size_t idx = 0;; ++idx)
         {
             int c = source();
             if (c < 0 || c == '\n' || c == '\r')
@@ -70,13 +73,13 @@ namespace tone::core {
             line += char(c);
         }
 
-        output << line << std::endl;
+        fmt::print(stderr, "{}\n", line);
 
-        for (size_t idx = 0; idx < index_in_line; ++idx)
+        for (std::size_t idx = 0; idx < index_in_line; ++idx)
         {
-            output << " ";
+            fmt::print(stderr, " ", line);
         }
 
-        output << "^" << std::endl;
+        fmt::print(stderr, "^\n", line);
     }
 }// namespace tone::core

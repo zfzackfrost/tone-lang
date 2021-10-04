@@ -25,5 +25,5 @@ namespace tone::core {
 
     error parsing_error(const char* message, std::size_t line_number, std::size_t char_index);
     error unexpected_error(std::string_view unexpected, std::size_t line_number, std::size_t char_index);
-    void format_error(const error& err, const character_source_t& source, std::ostream& output);
+    void dump_error(const error& err, const character_source_t& source);
 }// namespace tone::core

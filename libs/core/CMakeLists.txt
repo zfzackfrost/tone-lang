@@ -16,6 +16,7 @@ unset(PREFIX_S)
 
 add_library(tone_core STATIC ${TONE_SOURCES})
 target_include_directories(tone_core PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
+target_link_libraries(tone_core PUBLIC fmt::fmt-header-only)
 target_compile_features(tone_core PUBLIC cxx_std_20)
 set_target_properties(tone_core PROPERTIES CXX_EXTENSIONS OFF)
 

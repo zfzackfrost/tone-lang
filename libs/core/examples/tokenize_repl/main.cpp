@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
         {
             ss.clear();
             ss.seekg(0);
-            format_error(err, input, std::cerr);
+            dump_error(err, input);
         }
 
         std::cout << std::endl;
