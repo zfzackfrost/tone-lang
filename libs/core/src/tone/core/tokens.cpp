@@ -17,7 +17,7 @@ namespace tone::core {
             {"/", reserved_token::div},
             {"%", reserved_token::mod},
 
-            // Bit operators
+            // Bitwise operators
             {"~", reserved_token::bitwise_not},
             {"&", reserved_token::bitwise_and},
             {"|", reserved_token::bitwise_or},
@@ -27,6 +27,11 @@ namespace tone::core {
 
             // Assignment operators
             {"=", reserved_token::assign},
+            {"+=", reserved_token::add_assign},
+            {"-=", reserved_token::sub_assign},
+            {"*=", reserved_token::mul_assign},
+            {"/=", reserved_token::div_assign},
+            {"%=", reserved_token::mod_assign},
 
             // Logical operators
             {"!", reserved_token::logical_not},

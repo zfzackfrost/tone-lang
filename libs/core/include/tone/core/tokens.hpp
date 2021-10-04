@@ -11,15 +11,18 @@
 namespace tone::core {
     enum class reserved_token : std::uint16_t
     {
+        // Increment, Decrement
         inc,
         dec,
 
+        // Basic arithmetic
         add,
         sub,
         mul,
         div,
         mod,
 
+        // Bitwise
         bitwise_not,
         bitwise_and,
         bitwise_or,
@@ -27,12 +30,20 @@ namespace tone::core {
         shift_l,
         shift_r,
 
+        // Assignment
         assign,
+        add_assign,
+        sub_assign,
+        mul_assign,
+        div_assign,
+        mod_assign,
 
+        // Logical
         logical_not,
         logical_and,
         logical_or,
 
+        // Comparison
         equal,
         not_equal,
         less,
@@ -40,16 +51,16 @@ namespace tone::core {
         less_equal,
         greater_equal,
 
+        // Misc.
         comma,
         semicolon,
         colon,
 
+        // Brackets, Braces
         open_paren,
         close_paren,
-
         open_curly,
         close_curly,
-
         open_square,
         close_square,
 
