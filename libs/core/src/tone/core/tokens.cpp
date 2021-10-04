@@ -1,11 +1,7 @@
 #include "tone/core/tokens.hpp"
 #include "tone/core/lookup.hpp"
 
-#include <iomanip>
-#include <ios>
-
 #include <fmt/format.h>
-#include <fmt/ostream.h>
 
 namespace tone::core {
 
@@ -45,11 +41,10 @@ namespace tone::core {
             {">", reserved_token::greater},
             {">=", reserved_token::greater_equal},
 
-            // Comma operator
+            // Misc.
             {",", reserved_token::comma},
-
-            // Semicolon
             {";", reserved_token::semicolon},
+            {":", reserved_token::colon},
 
             // Brackets
             {"(", reserved_token::open_paren},

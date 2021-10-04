@@ -41,8 +41,8 @@ namespace tone::core {
         greater_equal,
 
         comma,
-
         semicolon,
+        colon,
 
         open_paren,
         close_paren,
