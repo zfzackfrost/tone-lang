@@ -46,10 +46,11 @@ namespace tone::core {
             {">", reserved_token::greater},
             {">=", reserved_token::greater_equal},
 
-            // Misc.
+            // Misc. operators
             {",", reserved_token::comma},
             {";", reserved_token::semicolon},
             {":", reserved_token::colon},
+            {".", reserved_token::scope},
 
             // Brackets
             {"(", reserved_token::open_paren},
