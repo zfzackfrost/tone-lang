@@ -1,7 +1,6 @@
 #include "tone/core/errors.hpp"
 #include "tone/core/tokenize.hpp"
 
-#include <algorithm>
 #include <iostream>
 #include <ranges>
 #include <sstream>
@@ -44,7 +43,7 @@ int main(int argc, char* argv[])
         }
 
         std::cout << std::endl;
-    } while (line != "exit");
+    } while (line != "exit" && !std::cin.eof());
 
     return 0;
 }
