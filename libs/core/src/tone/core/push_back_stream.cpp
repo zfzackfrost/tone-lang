@@ -42,4 +42,4 @@ namespace tone::core {
     {
         return _char_idx;
     }
-}// namespace tone::core
+} // namespace tone::core

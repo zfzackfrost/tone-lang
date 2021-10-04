@@ -23,4 +23,4 @@ namespace tone::core {
         std::size_t _line_num;
         std::size_t _char_idx;
     };
-}// namespace tone::core
+} // namespace tone::core

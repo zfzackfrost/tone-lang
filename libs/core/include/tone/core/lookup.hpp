@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace tone::core {
-    template<typename K, typename V>
+    template <typename K, typename V>
     class lookup
     {
     public:
@@ -28,6 +28,6 @@ namespace tone::core {
     private:
         container_type _container;
     };
-}// namespace tone::core
+} // namespace tone::core
 
 #include "tone/core/lookup.inl"

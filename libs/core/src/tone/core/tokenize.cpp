@@ -199,7 +199,7 @@ namespace tone::core {
             }
         }
 
-    }// namespace
+    } // namespace
     token tokenize(push_back_stream& stream)
     {
         for (;;)
@@ -233,4 +233,4 @@ namespace tone::core {
             }
         }
     }
-}// namespace tone::core
+} // namespace tone::core

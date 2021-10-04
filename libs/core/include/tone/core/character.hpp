@@ -6,4 +6,4 @@
 namespace tone::core {
     using character_t = int;
     using character_source_t = std::function<character_t()>;
-}// namespace tone::core
+} // namespace tone::core

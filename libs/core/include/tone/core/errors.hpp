@@ -28,4 +28,4 @@ namespace tone::core {
     error unexpected_error(std::string_view unexpected, std::size_t line_number,
                            std::size_t char_index);
     void print_error(const error& err, const character_source_t& source);
-}// namespace tone::core
+} // namespace tone::core

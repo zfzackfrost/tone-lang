@@ -279,4 +279,4 @@ namespace tone::core {
             return "EOF";
         return "!!INVALID!!";
     }
-}// namespace tone::core
+} // namespace tone::core

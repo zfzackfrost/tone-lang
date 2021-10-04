@@ -82,4 +82,4 @@ namespace tone::core {
 
         fmt::print(stderr, "^\n", line);
     }
-}// namespace tone::core
+} // namespace tone::core

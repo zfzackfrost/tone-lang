@@ -144,4 +144,4 @@ namespace tone::core {
         std::size_t _char_index;
     };
 
-}// namespace tone::core
+} // namespace tone::core
