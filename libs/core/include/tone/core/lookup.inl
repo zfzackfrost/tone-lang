@@ -33,9 +33,8 @@ namespace tone::core {
     typename lookup<K, V>::const_iterator lookup<K, V>::find(const auto& key) const
     {
         using key_param_t = const decltype(key);
-        auto it = std::lower_bound(begin(), end(), key, [](const value_type& p, key_param_t k) {
-          return p.first < k;
-        });
+        auto it = std::lower_bound(begin(), end(), key,
+                                   [](const value_type& p, key_param_t k) { return p.first < k; });
         return it != end() && it->first == key ? it : end();
     }
     template<typename K, typename V>

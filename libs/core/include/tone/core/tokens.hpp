@@ -112,8 +112,8 @@ namespace tone::core {
     class token
     {
     public:
-        using value_type =
-        std::variant<reserved_token, identifier, bool, double, std::int64_t, std::string, null, eof>;
+        using value_type = std::variant<reserved_token, identifier, bool, double, std::int64_t,
+                                        std::u16string, null, eof>;
 
         token(value_type value, std::size_t line_number, std::size_t char_index);
 
@@ -131,12 +131,13 @@ namespace tone::core {
         [[nodiscard]] bool get_bool() const;
         [[nodiscard]] double get_real() const;
         [[nodiscard]] std::int64_t get_int() const;
-        [[nodiscard]] std::string_view get_str() const;
+        [[nodiscard]] std::u16string get_str() const;
 
         [[nodiscard]] std::size_t get_line_number() const;
         [[nodiscard]] std::size_t get_char_index() const;
 
         std::string dump() const;
+
     private:
         value_type _value;
         std::size_t _line_num;

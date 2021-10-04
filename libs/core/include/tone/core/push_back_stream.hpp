@@ -16,10 +16,11 @@ namespace tone::core {
 
         [[nodiscard]] std::size_t line_number() const;
         [[nodiscard]] std::size_t char_index() const;
+
     private:
         const character_source_t& _input;
         std::stack<character_t> _stack;
         std::size_t _line_num;
         std::size_t _char_idx;
     };
-}
+}// namespace tone::core

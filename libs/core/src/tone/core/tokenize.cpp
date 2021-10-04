@@ -111,9 +111,12 @@ namespace tone::core {
             auto line_number = stream.line_number();
             auto char_index = stream.char_index();
 
-            std::string str;
+            std::u16string str;
 
             bool escaped = false;
+            bool unicode = false;
+
+            std::string unicode_id = "";
 
             auto c = stream();
 
@@ -121,11 +124,30 @@ namespace tone::core {
             {
                 if (c == '\\')
                 {
+                    if (unicode)
+                        throw parsing_error("Invalid unicode character", stream.line_number(),
+                                            stream.char_index());
                     escaped = true;
+                    continue;
                 }
                 else
                 {
-                    if (escaped)
+                    if (unicode)
+                    {
+                        if (std::isdigit(c))
+                            unicode_id.push_back(c);
+                        else
+                            throw parsing_error("Invalid unicode character", stream.line_number(),
+                                                stream.char_index());
+
+                        if (unicode_id.size() >= 4)
+                        {
+                            auto id = strtol(unicode_id.c_str(), nullptr, 16);
+                            str.push_back(char16_t(id));
+                            unicode = false;
+                        }
+                    }
+                    else if (escaped)
                     {
                         if (c == 't')
                             str.push_back('\t');
@@ -135,8 +157,10 @@ namespace tone::core {
                             str.push_back('\r');
                         else if (c == '0')
                             str.push_back('\0');
+                        else if (c == 'u')
+                            unicode = true;
                         else
-                            str.push_back(char(c));
+                            str.push_back(char16_t(c));
                         escaped = false;
                     }
                     else
@@ -153,7 +177,7 @@ namespace tone::core {
                         }
                         else
                         {
-                            str.push_back(char(c));
+                            str.push_back(char16_t(c));
                         }
                     }
                 }

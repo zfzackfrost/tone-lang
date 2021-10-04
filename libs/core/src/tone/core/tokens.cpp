@@ -1,8 +1,9 @@
 #include "tone/core/tokens.hpp"
 #include "tone/core/lookup.hpp"
 
+#include <codecvt>
 #include <fmt/format.h>
-
+#include <locale>
 namespace tone::core {
 
     const lookup<std::string_view, reserved_token> operator_token_map{
@@ -210,7 +211,7 @@ namespace tone::core {
     }
     bool token::is_str() const
     {
-        return std::holds_alternative<std::string>(_value);
+        return std::holds_alternative<std::u16string>(_value);
     }
     bool token::is_null() const
     {
@@ -242,9 +243,9 @@ namespace tone::core {
     {
         return std::get<std::int64_t>(_value);
     }
-    std::string_view token::get_str() const
+    std::u16string token::get_str() const
     {
-        return std::get<std::string>(_value);
+        return std::get<std::u16string>(_value);
     }
     std::size_t token::get_line_number() const
     {
@@ -267,7 +268,11 @@ namespace tone::core {
         if (is_int())
             return fmt::format("Int: {}", get_int());
         if (is_str())
-            return fmt::format("Str: \"{}\"", get_str());
+        {
+            std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> convert;
+            std::string s = convert.to_bytes(get_str());
+            return fmt::format("Str: \"{}\"", s);
+        }
         if (is_null())
             return "Null";
         if (is_eof())

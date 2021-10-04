@@ -1,7 +1,7 @@
 #include "tone/core/errors.hpp"
 
-#include <fmt/format.h>
 #include <cstdlib>
+#include <fmt/format.h>
 
 #include <utility>
 
