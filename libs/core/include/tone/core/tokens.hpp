@@ -6,8 +6,6 @@
 #include <string_view>
 #include <variant>
 
-#include <ostream>
-
 #include "tone/core/push_back_stream.hpp"
 
 namespace tone::core {
@@ -89,8 +87,6 @@ namespace tone::core {
     std::optional<reserved_token> get_keyword(std::string_view word);
     std::optional<reserved_token> get_operator(push_back_stream& stream);
 
-    std::ostream& operator<<(std::ostream& strm, reserved_token tok);
-
     struct identifier final {
         std::string name;
     };
@@ -128,7 +124,7 @@ namespace tone::core {
         [[nodiscard]] std::size_t get_line_number() const;
         [[nodiscard]] std::size_t get_char_index() const;
 
-        void dump(std::ostream& strm);
+        std::string dump() const;
     private:
         value_type _value;
         std::size_t _line_num;

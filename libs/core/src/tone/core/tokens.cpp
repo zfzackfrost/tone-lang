@@ -1,8 +1,11 @@
 #include "tone/core/tokens.hpp"
 #include "tone/core/lookup.hpp"
 
-#include <ios>
 #include <iomanip>
+#include <ios>
+
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 
 namespace tone::core {
 
@@ -165,14 +168,13 @@ namespace tone::core {
 
         return tok;
     }
-    std::ostream& operator<<(std::ostream& strm, reserved_token tok)
+    std::string_view reserved_token_to_string(reserved_token tok)
     {
         auto it = token_string_map.find(tok);
         if (it != token_string_map.end())
-            strm << it->second;
+            return it->second;
         else
-            strm << "INVALID";
-        return strm;
+            return "!!INVALID!!";
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,23 +253,24 @@ namespace tone::core {
     {
         return _char_index;
     }
-    void token::dump(std::ostream& strm)
+    std::string token::dump() const
     {
         if (is_reserved_token())
-            strm << "Reserved: " << get_reserved_token();
-        else if (is_identifier())
-            strm << "Identifier: " << get_identifier();
-        else if (is_bool())
-            strm << "Boolean: " << get_bool() ? "true" : "false";
-        else if (is_real())
-            strm << "Real: " << get_real();
-        else if (is_int())
-            strm << "Int: " << get_int();
-        else if (is_str())
-            strm << "Str: " << '"' << get_str() << '"';
-        else if (is_null())
-            strm << "Null";
-        else if (is_eof())
-            strm << "EOF";
+            return fmt::format("Reserved: `{}`", reserved_token_to_string(get_reserved_token()));
+        if (is_identifier())
+            return fmt::format("Identifier: {}", get_identifier());
+        if (is_bool())
+            return fmt::format("Bool: {}", get_bool());
+        if (is_real())
+            return fmt::format("Real: {:.03f}", get_real());
+        if (is_int())
+            return fmt::format("Int: {}", get_int());
+        if (is_str())
+            return fmt::format("Str: \"{}\"", get_str());
+        if (is_null())
+            return "Null";
+        if (is_eof())
+            return "EOF";
+        return "!!INVALID!!";
     }
 }// namespace tone::core

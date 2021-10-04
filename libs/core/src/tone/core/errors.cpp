@@ -41,7 +41,7 @@ namespace tone::core {
         return {message, line_number, char_index};
     }
 
-    void dump_error(const error& err, const character_source_t& source)
+    void print_error(const error& err, const character_source_t& source)
     {
         fmt::print(stderr, "({}) {}\n", err.line_number() + 1, err.what());
 

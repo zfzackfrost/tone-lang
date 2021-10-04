@@ -5,6 +5,8 @@
 #include <ranges>
 #include <sstream>
 
+#include <fmt/format.h>
+
 int main(int argc, char* argv[])
 {
     using namespace tone::core;
@@ -14,7 +16,7 @@ int main(int argc, char* argv[])
     std::string line;
     do
     {
-        std::cout << "> ";
+        fmt::print("> ");
         std::getline(std::cin, line);
 
         if (line.empty())
@@ -25,24 +27,21 @@ int main(int argc, char* argv[])
         std::istringstream ss(line);
         character_source_t input = [&ss]() { return ss.get(); };
 
+        push_back_stream strm(input);
         try
         {
-            push_back_stream strm(input);
             for (auto t = tokenize(strm); !t.is_eof(); t = tokenize(strm))
             {
-                std::cout << token_prefix;
-                t.dump(std::cout);
-                std::cout << std::endl;
+                fmt::print("    {}\n", t.dump());
             }
         }
         catch (const error& err)
         {
             ss.clear();
             ss.seekg(0);
-            dump_error(err, input);
+            print_error(err, input);
         }
-
-        std::cout << std::endl;
+        fmt::print("\n");
     } while (line != "exit" && !std::cin.eof());
 
     return 0;
