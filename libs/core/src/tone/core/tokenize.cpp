@@ -63,10 +63,10 @@ namespace tone::core {
                 if (std::isdigit(word.front()))
                 {
                     char* endptr;
-                    double num = strtol(word.c_str(), &endptr, 0);
+                    std::int64_t i_num = strtol(word.c_str(), &endptr, 0);
                     if (*endptr != 0)
                     {
-                        num = strtod(word.c_str(), &endptr);
+                        double r_num = strtod(word.c_str(), &endptr);
                         if (*endptr != 0)
                         {
                             auto remaining = word.size() - (endptr - word.c_str());
@@ -74,8 +74,9 @@ namespace tone::core {
                                                    stream.line_number(),
                                                    stream.char_index() - remaining);
                         }
+                        return {r_num, line_number, char_index};
                     }
-                    return {num, line_number, char_index};
+                    return {i_num, line_number, char_index};
                 }
                 else
                 {

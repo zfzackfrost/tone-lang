@@ -263,7 +263,7 @@ namespace tone::core {
         if (is_bool())
             return fmt::format("Bool: {}", get_bool());
         if (is_real())
-            return fmt::format("Real: {:.03f}", get_real());
+            return fmt::format("Real: {:.06f}", get_real());
         if (is_int())
             return fmt::format("Int: {}", get_int());
         if (is_str())
