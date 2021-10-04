@@ -103,17 +103,17 @@ namespace tone::core {
         std::string name;
     };
 
-    struct eof final {
+    struct eof_type final {
     };
 
-    struct null final {
+    struct null_type final {
     };
 
     class token
     {
     public:
         using value_type = std::variant<reserved_token, identifier, bool, double, std::int64_t,
-                                        std::u16string, null, eof>;
+                                        std::u16string, null_type, eof_type>;
 
         token(value_type value, std::size_t line_number, std::size_t char_index);
         token();

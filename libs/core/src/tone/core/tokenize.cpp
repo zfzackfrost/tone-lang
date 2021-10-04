@@ -54,7 +54,7 @@ namespace tone::core {
                 }
                 else if (t == reserved_token::kw_constant_null)
                 {
-                    return {null{}, line_number, char_index};
+                    return {null_type{}, line_number, char_index};
                 }
                 return {*t, line_number, char_index};
             }
@@ -212,7 +212,7 @@ namespace tone::core {
             switch (get_character_type(c))
             {
                 case character_category::eof:
-                    return {eof{}, line_number, char_index};
+                    return {eof_type{}, line_number, char_index};
                 case character_category::space:
                     continue;
                 case character_category::alphanum:

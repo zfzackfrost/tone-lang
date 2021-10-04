@@ -186,7 +186,7 @@ namespace tone::core {
     /// `token` class
     ////////////////////////////////////////////////////////////////////////////////////////////////
     token::token()
-        : _value(eof{})
+        : _value(eof_type{})
         , _line_num(0)
         , _char_index(0)
     {}
@@ -243,11 +243,11 @@ namespace tone::core {
     }
     bool token::is_null() const
     {
-        return std::holds_alternative<null>(_value);
+        return std::holds_alternative<null_type>(_value);
     }
     bool token::is_eof() const
     {
-        return std::holds_alternative<eof>(_value);
+        return std::holds_alternative<eof_type>(_value);
     }
 
     reserved_token token::get_reserved_token() const
