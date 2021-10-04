@@ -2,7 +2,10 @@
 #include "tone/core/lookup.hpp"
 
 #include <codecvt>
+
+#include <fmt/color.h>
 #include <fmt/format.h>
+
 #include <locale>
 namespace tone::core {
 
@@ -310,5 +313,56 @@ namespace tone::core {
         if (is_eof())
             return "EOF";
         return "!!INVALID!!";
+    }
+
+    void token::print_ansi() const
+    {
+        if (is_reserved_token())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Reserved: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "{}\n",
+                       reserved_token_to_string(get_reserved_token()));
+        }
+        else if (is_identifier())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Identifier: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "{}\n", get_identifier());
+        }
+        else if (is_bool())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Bool: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "{}\n", get_bool());
+        }
+        else if (is_real())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Bool: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "{:.06f}\n", get_real());
+        }
+        else if (is_int())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Int: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "{}\n", get_int());
+        }
+        else if (is_str())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Str: ");
+            std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> convert;
+            std::string s = convert.to_bytes(get_str());
+            fmt::print(fmt::fg(fmt::terminal_color::green), "'{}'\n", s);
+        }
+        else if (is_null())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Constant: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "Null\n");
+        }
+        else if (is_eof())
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::blue), "Constant: ");
+            fmt::print(fmt::fg(fmt::terminal_color::green), "EOF\n");
+        }
+        else
+        {
+            fmt::print(fmt::fg(fmt::terminal_color::red), "!!INVALID!!\n");
+        }
     }
 } // namespace tone::core

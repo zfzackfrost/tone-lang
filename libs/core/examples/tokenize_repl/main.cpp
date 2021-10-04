@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include <fmt/format.h>
+#include <fmt/color.h>
 
 int main(int argc, char* argv[])
 {
@@ -32,7 +33,8 @@ int main(int argc, char* argv[])
         {
             for (auto t : tokenizer(strm))
             {
-                fmt::print("    {}\n", t.dump());
+                fmt::print("    ");
+                t.print_ansi();
             }
         }
         catch (const error& err)

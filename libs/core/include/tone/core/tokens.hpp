@@ -139,7 +139,8 @@ namespace tone::core {
         [[nodiscard]] std::size_t get_line_number() const;
         [[nodiscard]] std::size_t get_char_index() const;
 
-        std::string dump() const;
+        [[nodiscard]] std::string dump() const;
+        void print_ansi() const;
 
     private:
         value_type _value;
