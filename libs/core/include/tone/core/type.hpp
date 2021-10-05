@@ -3,6 +3,7 @@
 #include <variant>
 #include <vector>
 #include <set>
+#include <string>
 
 namespace tone::core {
     enum class primitive_type
@@ -22,7 +23,7 @@ namespace tone::core {
 
     struct array_type
     {
-        type_handle* inner_type_id;
+        type_handle inner_type_id;
     };
 
     struct function_type
@@ -36,6 +37,7 @@ namespace tone::core {
         type_handle  return_type_id;
         std::vector<param> param_type_id;
     };
+
 
     class type_registry
     {
@@ -63,4 +65,6 @@ namespace tone::core {
         static type _str_type;
     };
 
+
+    std::string dump_type_handle(type_handle ty);
 }

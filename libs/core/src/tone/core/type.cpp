@@ -1,6 +1,7 @@
 #include "tone/core/type.hpp"
 #include "tone/core/variant_helpers.hpp"
 
+
 namespace tone::core {
     type type_registry::_void_type = primitive_type::nothing;
     type type_registry::_bool_type = primitive_type::boolean;
@@ -88,6 +89,52 @@ namespace tone::core {
     type_handle type_registry::get_str_handle()
     {
         return &_str_type;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Helper functions
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    std::string dump_type_handle(type_handle ty)
+    {
+        using namespace  std::string_literals;
+        return std::visit(
+                // clang-format off
+                overloaded {
+                    [](primitive_type value) {
+                        switch(value)
+                        {
+                        case primitive_type::nothing:
+                            return "void"s;
+                        case primitive_type::real:
+                            return "real"s;
+                        case primitive_type::integer:
+                            return "int"s;
+                        case primitive_type::boolean:
+                            return "bool"s;
+                        case primitive_type::str:
+                            return "str"s;
+                        }
+                        return ""s;
+                    },
+                    [](const array_type& arr) {
+                        auto s = dump_type_handle(arr.inner_type_id);
+                        return s + "[]";
+                    },
+                    [](const function_type& fn) {
+                        auto s = dump_type_handle(fn.return_type_id);
+                        auto sep = "";
+                        for (const auto& p : fn.param_type_id)
+                        {
+                            s += sep + dump_type_handle(p.type_id) + (p.by_ref ? "&" : "");
+                            sep = ",";
+                        }
+                        return s + ")";
+                    }
+                }
+                // clang-format on
+        , *ty);
     }
 
 } // namespace tone::core

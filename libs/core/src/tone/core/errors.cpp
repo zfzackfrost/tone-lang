@@ -32,13 +32,55 @@ namespace tone::core {
         error_message += message;
         return {std::move(error_message), line_number, char_index};
     }
+    error syntax_error(std::string_view message, size_t line_number, size_t char_index)
+    {
+        std::string msg("Syntax error: ");
+        msg += message;
+        return {std::move(msg), line_number, char_index};
+    }
     error unexpected_error(std::string_view unexpected, std::size_t line_number,
                            std::size_t char_index)
     {
         std::string message("Unexpected '");
         message += unexpected;
         message += "'";
-        return {message, line_number, char_index};
+        return {std::move(message), line_number, char_index};
+    }
+
+    error semantic_error(std::string_view message, size_t line_number, size_t char_index)
+    {
+        std::string error_message("Semantic error: ");
+        error_message += message;
+        return {std::move(error_message), line_number, char_index};
+    }
+
+    error undeclared_error(std::string_view undeclared, size_t line_number, size_t char_index)
+    {
+        std::string message("Undeclared identifier '");
+        message += undeclared;
+        message += "'";
+        return {std::move(message), line_number, char_index};
+    }
+
+    error wrong_type_error(std::string_view source, std::string_view destination, bool lvalue,
+                           size_t line_number, size_t char_index)
+    {
+        std::string message;
+        if (lvalue)
+        {
+            message += "'";
+            message += source;
+            message += "' is not an lvalue";
+        }
+        else
+        {
+            message += "Can't convert '";
+            message += source;
+            message += "' to '";
+            message += destination;
+            message += "'";
+        }
+        return semantic_error(message, line_number, char_index);
     }
 
     void print_error(const error& err, const character_source_t& source)
