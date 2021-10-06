@@ -158,6 +158,7 @@ int main()
     std::string line;
     do
     {
+        fmt::print("> ");
         std::getline(std::cin, line);
         if (line.empty())
             continue;
@@ -170,7 +171,7 @@ int main()
         try {
             token_iterator it(strm);
             node_ptr n = parse_expression_tree(context, it, type_registry::get_void_handle(), false, true, false);
-            std::cout << "Expression parsed as: " << dump_node(n) << std::endl;
+            fmt::print("Parsed expression: {}", dump_node(n));
         }
         catch(const error& err)
         {
