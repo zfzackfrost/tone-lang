@@ -87,6 +87,9 @@ namespace tone::core {
         [[nodiscard]] bool is_int() const;
         [[nodiscard]] bool is_numeric() const;
         [[nodiscard]] bool is_str() const;
+
+        [[nodiscard]] std::size_t line_number() const;
+        [[nodiscard]] std::size_t char_index() const;
     private:
         node_value _value;
         std::vector<node_ptr> _children;

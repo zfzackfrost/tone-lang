@@ -173,11 +173,12 @@ namespace tone::core {
 
         return tok;
     }
-    std::string_view reserved_token_to_string(reserved_token tok)
+
+    std::string dump_reserved_token(reserved_token tok)
     {
         auto it = token_string_map.find(tok);
         if (it != token_string_map.end())
-            return it->second;
+            return std::string(it->second);
         else
             return "!!INVALID!!";
     }
@@ -199,20 +200,25 @@ namespace tone::core {
 
     bool token::operator==(const token& rhs) const
     {
+        return value_equals(rhs._value);
+    }
+
+    bool token::value_equals(token::value_type other) const
+    {
         // If type doesn't match, early exit
-        if (_value.index() != rhs._value.index())
+        if (_value.index() != other.index())
             return false;
 
         if (is_reserved_token())
-            return get_reserved_token() == rhs.get_reserved_token();
+            return get_reserved_token() == std::get<reserved_token>(other);
         if (is_identifier())
-            return get_identifier() == rhs.get_identifier();
+            return get_identifier() == std::get<identifier>(other).name;
         if (is_bool())
-            return get_bool() == rhs.get_bool();
+            return get_bool() == std::get<bool>(other);
         if (is_real())
-            return get_real() == rhs.get_real();
+            return get_real() == std::get<double>(other);
         if (is_int())
-            return get_int() == rhs.get_int();
+            return get_int() == std::get<std::int64_t>(other);
         // Null and EOF are always the same, so return true
         return true;
     }
@@ -260,6 +266,11 @@ namespace tone::core {
         return std::get<identifier>(_value).name;
     }
 
+    const identifier& token::get_identifier_ref() const
+    {
+        return std::get<identifier>(_value);
+    }
+
     bool token::get_bool() const
     {
         return std::get<bool>(_value);
@@ -293,7 +304,7 @@ namespace tone::core {
     std::string token::dump() const
     {
         if (is_reserved_token())
-            return fmt::format("Reserved: `{}`", reserved_token_to_string(get_reserved_token()));
+            return fmt::format("Reserved: `{}`", dump_reserved_token(get_reserved_token()));
         if (is_identifier())
             return fmt::format("Identifier: {}", get_identifier());
         if (is_bool())
@@ -321,7 +332,7 @@ namespace tone::core {
         {
             fmt::print(fmt::fg(fmt::terminal_color::blue), "Reserved: ");
             fmt::print(fmt::fg(fmt::terminal_color::green), "{}\n",
-                       reserved_token_to_string(get_reserved_token()));
+                       dump_reserved_token(get_reserved_token()));
         }
         else if (is_identifier())
         {

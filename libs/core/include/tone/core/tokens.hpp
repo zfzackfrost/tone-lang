@@ -96,6 +96,8 @@ namespace tone::core {
         kw_constant_null,
     };
 
+    std::string dump_reserved_token(reserved_token tok);
+
     std::optional<reserved_token> get_keyword(std::string_view word);
     std::optional<reserved_token> get_operator(push_back_stream& stream);
 
@@ -120,6 +122,8 @@ namespace tone::core {
 
         bool operator==(const token& rhs) const;
 
+        bool value_equals(value_type other) const;
+
         [[nodiscard]] bool is_reserved_token() const;
         [[nodiscard]] bool is_identifier() const;
         [[nodiscard]] bool is_bool() const;
@@ -131,6 +135,7 @@ namespace tone::core {
 
         [[nodiscard]] reserved_token get_reserved_token() const;
         [[nodiscard]] std::string_view get_identifier() const;
+        [[nodiscard]] const identifier& get_identifier_ref() const;
         [[nodiscard]] bool get_bool() const;
         [[nodiscard]] double get_real() const;
         [[nodiscard]] std::int64_t get_int() const;

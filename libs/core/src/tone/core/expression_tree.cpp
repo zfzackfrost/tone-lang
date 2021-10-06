@@ -81,23 +81,6 @@ namespace tone::core {
                     _children[0]->check_conversion(int_handle, false);
                     break;
                 case node_operation::add:
-                    _type_id = _children[0]->_type_id;
-                    _lvalue = false;
-                    if (_children[0]->is_numeric() && _children[1]->is_numeric())
-                    {
-                        _children[0]->check_any_conversion({real_handle, int_handle}, false);
-                        _children[1]->check_any_conversion({real_handle, int_handle}, false);
-                    }
-                    else if (_children[0]->is_str() || _children[1]->is_str())
-                    {
-                        _children[0]->check_conversion(str_handle, false);
-                        _children[1]->check_conversion(str_handle, false);
-                    }
-                    else
-                    {
-                        throw syntax_error("Invalid operands for +", _line_number, _char_index);
-                    }
-                    break;
                 case node_operation::sub:
                 case node_operation::mul:
                 case node_operation::div:
@@ -277,5 +260,13 @@ namespace tone::core {
         }
         throw wrong_type_error(dump_type_handle(_type_id), error_type, lvalue, _line_number,
                                _char_index);
+    }
+    std::size_t node::line_number() const
+    {
+        return _line_number;
+    }
+    std::size_t node::char_index() const
+    {
+        return _char_index;
     }
 } // namespace tone::core

@@ -44,6 +44,18 @@ namespace tone::core {
     {
         return _tok;
     }
+    tokenizer::iterator::operator bool() const
+    {
+        return !_tok.is_eof();
+    }
+    const token* tokenizer::iterator::operator->() const
+    {
+        return &_tok;
+    }
+    token* tokenizer::iterator::operator->()
+    {
+        return &_tok;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// `tokenizer` class

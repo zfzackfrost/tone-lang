@@ -1,1 +1,2 @@
 add_subdirectory(tokenize_repl)
+add_subdirectory(expression_repl)

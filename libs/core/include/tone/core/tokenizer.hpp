@@ -18,6 +18,10 @@ namespace tone::core {
             bool operator==(iterator other) const;
             bool operator!=(iterator other) const;
             token operator*();
+            const token* operator->() const;
+            token* operator->();
+
+            operator bool() const;
 
             // iterator traits
             using value_type = token;
@@ -36,4 +40,5 @@ namespace tone::core {
     private:
         push_back_stream _strm;
     };
+    using token_iterator = tokenizer::iterator;
 } // namespace tone::core

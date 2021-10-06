@@ -32,6 +32,14 @@ namespace tone::core {
         error_message += message;
         return {std::move(error_message), line_number, char_index};
     }
+
+    error compiler_error(std::string_view message, size_t line_number, size_t char_index)
+    {
+        std::string error_message("Compiler error: ");
+        error_message += message;
+        return {std::move(error_message), line_number, char_index};
+    }
+
     error syntax_error(std::string_view message, size_t line_number, size_t char_index)
     {
         std::string msg("Syntax error: ");
@@ -81,6 +89,15 @@ namespace tone::core {
             message += "'";
         }
         return semantic_error(message, line_number, char_index);
+    }
+
+    error unexpected_syntax_error(std::string_view unexpected, size_t line_number,
+                                  size_t char_index)
+    {
+        std::string message("Unexpected '");
+        message += unexpected;
+        message += "'";
+        return syntax_error(message, line_number, char_index);
     }
 
     void print_error(const error& err, const character_source_t& source)
